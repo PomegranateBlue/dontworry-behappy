@@ -35,10 +35,21 @@ export async function signup(formData: FormData) {
     password: formData.get("password") as string,
   };
 
-  const { error } = await supabase.auth.signUp(data);
+  const { data: signUpUser, error: signUpError } = await supabase.auth.signUp(
+    data
+  );
 
-  if (error) {
+  if (signUpError) {
+    console.error("회원가입 실패", signUpError.message);
     redirect("/error");
+  }
+
+  const user=signUpUser.user;
+
+  if(user){
+    const {error:insertError}=await supabase.from("users").insert({
+      
+    })
   }
 
   revalidatePath("/", "layout");
@@ -47,13 +58,13 @@ export async function signup(formData: FormData) {
 
 export async function logout() {
   const supabase = await createClient();
-  
+
   const { error } = await supabase.auth.signOut();
-  
+
   if (error) {
     redirect("/error");
   }
-  
+
   revalidatePath("/", "layout");
   redirect("/login");
 }

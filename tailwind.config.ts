@@ -25,6 +25,20 @@ const config: Config = {
         labelStrong: "#2B2B2B",
         labelWhite: "#FFFFFF",
         labelBlack: "#000000",
+        labelNeutral: "#47484C",
+
+        //배경색상
+        backgroundWhite: "#FFFFFF",
+        backgroundCard: "#F7F7F8",
+        backgroundOffWhite: "#EEEEF0",
+
+        //상호작용
+        interactionDisabled: "#DBDCDF",
+        interactionInActive: "#F4F4F5",
+
+        //에러 처리 색상
+        statusPositive: "#0FBFA8",
+        statusError: "#FE5558",
 
         // Emotion Colors (예: 감정 태그 등)
         emotionAngry: "#FF6B6B",

@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import type { User } from "@supabase/supabase-js";
 import LoginForm from "@/components/LoginForm";
 import RegisterForm from "@/components/RegisterForm";
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User|null>(null);
+  //supabase.auth.getUser가 반환하는 타입으로 선언
   const router = useRouter();
   
   useEffect(() => {

@@ -29,8 +29,10 @@ export default function LoginForm() {
       // 로그인 성공 시 홈페이지로 리다이렉트
       router.push("/");
       router.refresh();
-    } catch (error: any) {
-      setError(error?.message || "로그인 중 오류가 발생했습니다.");
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error?.message || "로그인 중 오류가 발생했습니다.");
+      }
     } finally {
       setLoading(false);
     }

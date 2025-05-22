@@ -10,7 +10,7 @@ const Header = () => {
         </Link>
       </div>
 
-      <nav className="flex flex-1 justify-between">
+      <nav className="flex flex-1 justify-between bg-red-500">
         <Link href="/note" className="text-[16px] font-medium text-labelNeutral">
           걱정 작성
         </Link>

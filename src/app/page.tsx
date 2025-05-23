@@ -1,4 +1,5 @@
 'use client';
+//컴포넌트로 반복 구조 수정하기
 
 import Image from 'next/image';
 
@@ -55,6 +56,7 @@ const App = () => {
                     />
                 </div>
             </section>
+            <div></div>
             <footer className="h-[48px] w-full bg-gray-500"></footer>
         </section>
     );

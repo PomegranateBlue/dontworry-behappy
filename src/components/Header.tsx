@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 const Header = () => {
   return (
-    <header className="flex h-[64px] w-full items-center bg-backgroundWhite px-[40px] py-[24px]">
+    <header className="flex h-[64px] w-full items-center bg-backgroundOffWhite px-[40px] py-[24px]">
       <div className="flex-1">
         <Link href="/">
           <Image src="/header.svg" alt="logo" width={180} height={30} />

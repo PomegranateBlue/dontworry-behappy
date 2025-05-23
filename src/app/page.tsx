@@ -1,4 +1,5 @@
 import Image from 'next/image';
+
 const App = () => {
   return (
     <div className="bg-backgroundWhite px-[12px] py-[24px]">

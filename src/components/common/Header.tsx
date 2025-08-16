@@ -17,13 +17,21 @@ const Header = () => {
             <div className={containerStyles}>
                 <nav>
                     <ul>
-                        {navigation.map((route) => (
-                            <li key={route.name}>
-                                <Link href={route.href}>
-                                    <span>{route.name}</span>
-                                </Link>
-                            </li>
-                        ))}
+                        {navigation.map((route) => {
+                            const isActive = pathname === route.href;
+                            return (
+                                <li key={route.name}>
+                                    <Link
+                                        href={route.href}
+                                        aria-current={
+                                            isActive ? 'page' : undefined
+                                        }
+                                    >
+                                        <span>{route.name}</span>
+                                    </Link>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </nav>
             </div>

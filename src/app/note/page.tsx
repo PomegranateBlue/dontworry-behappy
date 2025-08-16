@@ -2,53 +2,10 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-
-// Web Speech API TypeScript 선언
-interface SpeechRecognitionEvent extends Event {
-    results: SpeechRecognitionResultList;
-    resultIndex: number;
-    error: Error | null;
-}
-
-interface SpeechRecognitionResultList {
-    length: number;
-    item(index: number): SpeechRecognitionResult;
-    [index: number]: SpeechRecognitionResult;
-}
-
-interface SpeechRecognitionResult {
-    isFinal: boolean;
-    length: number;
-    item(index: number): SpeechRecognitionAlternative;
-    [index: number]: SpeechRecognitionAlternative;
-}
-
-interface SpeechRecognitionAlternative {
-    transcript: string;
-    confidence: number;
-}
-
-interface SpeechRecognition extends EventTarget {
-    continuous: boolean;
-    interimResults: boolean;
-    lang: string;
-    onresult: (event: SpeechRecognitionEvent) => void;
-    onerror: (event: SpeechRecognitionEvent) => void;
-    start(): void;
-    stop(): void;
-}
-
-interface SpeechRecognitionConstructor {
-    new (): SpeechRecognition;
-    prototype: SpeechRecognition;
-}
-
-declare global {
-    interface Window {
-        SpeechRecognition?: SpeechRecognitionConstructor;
-        webkitSpeechRecognition?: SpeechRecognitionConstructor;
-    }
-}
+import {
+    SpeechRecognition,
+    SpeechRecognitionEvent,
+} from '@/types/speech/webSpeech';
 
 const NotePage = () => {
     const [isListening, setIsListening] = useState(false);

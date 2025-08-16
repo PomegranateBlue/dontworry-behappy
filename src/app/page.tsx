@@ -2,10 +2,13 @@
 //컴포넌트로 반복 구조 수정하기
 
 import Image from 'next/image';
-
+import Header from '@/components/common/Header';
 const App = () => {
     return (
         <section className="bg-backgroundWhite px-[12px] py-[24px]">
+            <section>
+                <Header />
+            </section>
             <section className="relative mx-auto min-h-screen w-full overflow-hidden">
                 <div className="relative h-[540px] w-full overflow-hidden rounded-xl">
                     <Image

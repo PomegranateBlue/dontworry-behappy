@@ -1,68 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
-
-// Web Speech API TypeScript declarations
-interface SpeechRecognitionEvent extends Event {
-    results: SpeechRecognitionResultList;
-    resultIndex: number;
-    error: Error | null;
-}
-
-interface SpeechRecognitionResultList {
-    length: number;
-    item(index: number): SpeechRecognitionResult;
-    [index: number]: SpeechRecognitionResult;
-}
-
-interface SpeechRecognitionResult {
-    isFinal: boolean;
-    length: number;
-    item(index: number): SpeechRecognitionAlternative;
-    [index: number]: SpeechRecognitionAlternative;
-}
-
-interface SpeechRecognitionAlternative {
-    transcript: string;
-    confidence: number;
-}
-
-interface SpeechRecognition extends EventTarget {
-    continuous: boolean;
-    interimResults: boolean;
-    lang: string;
-    onresult: (event: SpeechRecognitionEvent) => void;
-    onerror: (event: SpeechRecognitionEvent) => void;
-    start(): void;
-    stop(): void;
-}
-
-interface SpeechRecognitionConstructor {
-    new (): SpeechRecognition;
-    prototype: SpeechRecognition;
-}
-
-declare global {
-    interface Window {
-        SpeechRecognition?: SpeechRecognitionConstructor;
-        webkitSpeechRecognition?: SpeechRecognitionConstructor;
-    }
-}
+import { useEffect, useRef, useState } from 'react';
+import {
+    SpeechRecognition,
+    SpeechRecognitionEvent,
+} from '@/types/speech/webSpeech';
 
 const NotePage = () => {
     const [isListening, setIsListening] = useState(false);
     const [transcript, setTranscript] = useState('');
     const [tempWords, setTempWords] = useState('');
+    const recognitionRef = useRef<SpeechRecognition | null>(null);
 
     useEffect(() => {
-        let recognition: SpeechRecognition | null = null;
-
         if (typeof window !== 'undefined') {
             const SpeechRecognition =
                 window.SpeechRecognition || window.webkitSpeechRecognition;
+
             if (SpeechRecognition) {
-                recognition = new SpeechRecognition();
+                const recognition = new SpeechRecognition();
                 recognition.continuous = true;
                 recognition.interimResults = true;
                 recognition.lang = 'ko-KR';
@@ -76,53 +33,43 @@ const NotePage = () => {
                         i < event.results.length;
                         i++
                     ) {
-                        const transcript = event.results[i][0].transcript;
+                        const speech = event.results[i][0].transcript;
                         if (event.results[i].isFinal) {
-                            finalTranscript += transcript + ' ';
+                            finalTranscript += speech + ' ';
                         } else {
-                            interimTranscript += transcript;
+                            interimTranscript += speech;
                         }
                     }
 
-                    setTranscript(
-                        (prevTranscript) => prevTranscript + finalTranscript
-                    );
+                    setTranscript((prev) => prev + finalTranscript);
                     setTempWords(interimTranscript);
                 };
 
                 recognition.onerror = (event: SpeechRecognitionEvent) => {
-                    console.error('Speech recognition error:', event.error);
+                    console.error('음성 인식 오류:', event.error);
                 };
-            }
-        }
 
-        return () => {
-            if (recognition) {
-                recognition.stop();
-            }
-        };
-    }, []);
-
-    const toggleListening = () => {
-        if (typeof window !== 'undefined') {
-            const SpeechRecognition =
-                window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (SpeechRecognition) {
-                if (isListening) {
-                    const recognition = new SpeechRecognition();
-                    recognition.stop();
-                } else {
-                    const recognition = new SpeechRecognition();
-                    recognition.continuous = true;
-                    recognition.interimResults = true;
-                    recognition.lang = 'ko-KR';
-                    recognition.start();
-                }
-                setIsListening(!isListening);
+                recognitionRef.current = recognition;
             } else {
                 alert('이 브라우저는 음성 인식을 지원하지 않습니다.');
             }
         }
+
+        return () => {
+            recognitionRef.current?.stop();
+        };
+    }, []);
+
+    const toggleListening = () => {
+        const recognition = recognitionRef.current;
+        if (!recognition) return;
+
+        if (isListening) {
+            recognition.stop();
+        } else {
+            recognition.start();
+        }
+        setIsListening(!isListening);
     };
 
     return (

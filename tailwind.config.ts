@@ -54,6 +54,9 @@ const config: Config = {
         emotionStress: "#A0E2DD",
         emotionTired: "#EDEDD3",
         emotionWorried: "#DED3F3",
+        
+        // Header background
+        headerPurple: "#8573C9",
       },
     },
   },

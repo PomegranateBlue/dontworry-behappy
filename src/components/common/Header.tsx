@@ -2,7 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { headerStyles, containerStyles } from './Header.styles';
+import { 
+    headerStyles, 
+    containerStyles, 
+    navStyles, 
+    listStyles, 
+    linkStyles, 
+    activeLinkStyles 
+} from './Header.styles';
 const Header = () => {
     const pathname = usePathname();
 
@@ -15,14 +22,15 @@ const Header = () => {
     return (
         <header className={headerStyles}>
             <div className={containerStyles}>
-                <nav>
-                    <ul>
+                <nav className={navStyles}>
+                    <ul className={listStyles}>
                         {navigation.map((route) => {
                             const isActive = pathname === route.href;
                             return (
                                 <li key={route.name}>
                                     <Link
                                         href={route.href}
+                                        className={isActive ? activeLinkStyles : linkStyles}
                                         aria-current={
                                             isActive ? 'page' : undefined
                                         }

@@ -1,62 +1,46 @@
 'use client';
 //컴포넌트로 반복 구조 수정하기
 
-import Image from 'next/image';
+import HeroSection from '@/components/common/HeorSection';
 
+const heroSectionsImgSrcs = [
+    {
+        id: 'hero',
+        imageSrc: '/hero-section-desktop.svg',
+        alt: 'hero-section',
+    },
+    {
+        id: 'note-intro',
+        imageSrc: '/noteIntro.svg',
+        alt: 'note-introduction',
+    },
+    {
+        id: 'static-intro',
+        imageSrc: '/staticIntro.svg',
+        alt: 'static-introduction',
+    },
+    {
+        id: 'letter-intro',
+        imageSrc: '/letterIntro.svg',
+        alt: 'letter-introduction',
+    },
+    {
+        id: 'community-intro',
+        imageSrc: '/communityIntro.svg',
+        alt: 'community-introduction',
+    },
+];
 const App = () => {
     return (
         <main className="bg-backgroundWhite px-3 py-6 pt-16">
-            <section className="relative mx-auto min-h-screen w-full overflow-hidden">
-                <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-                    <Image
-                        src="/hero-section-desktop.svg"
-                        fill
-                        alt="hero-section"
-                        className="object-cover"
-                    />
-                </div>
-            </section>
-            <section className="relative mx-auto min-h-screen w-full overflow-hidden">
-                <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-                    <Image
-                        src="/noteIntro.svg"
-                        fill
-                        alt="hero-section"
-                        className="object-cover"
-                    />
-                </div>
-            </section>
-            <section className="relative mx-auto min-h-screen w-full overflow-hidden">
-                <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-                    <Image
-                        src="/staticIntro.svg"
-                        fill
-                        alt="hero-section"
-                        className="object-cover"
-                    />
-                </div>
-            </section>
-            <section className="relative mx-auto min-h-screen w-full overflow-hidden">
-                <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-                    <Image
-                        src="/letterIntro.svg"
-                        fill
-                        alt="hero-section"
-                        className="object-cover"
-                    />
-                </div>
-            </section>
-            <section className="relative mx-auto min-h-screen w-full overflow-hidden">
-                <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-                    <Image
-                        src="/communityIntro.svg"
-                        fill
-                        alt="hero-section"
-                        className="object-cover"
-                    />
-                </div>
-            </section>
-            <div></div>
+            {heroSectionsImgSrcs.map((section, index) => (
+                <HeroSection
+                    key={section.id}
+                    imageSrc={section.imageSrc}
+                    alt={section.alt}
+                    className={index === 0 ? 'priority' : ''}
+                />
+            ))}
             <footer className="h-12 w-full bg-gray-500"></footer>
         </main>
     );

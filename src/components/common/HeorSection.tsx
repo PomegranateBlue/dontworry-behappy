@@ -11,15 +11,16 @@ interface HeroSectionProps {
     alt?: string;
     className?: string;
 }
-const HeroSection = ({ imageSrc }: HeroSectionProps) => {
+const HeroSection = ({ imageSrc, alt = 'hero-section', className }: HeroSectionProps) => {
     return (
         <section className={SectionStyle}>
             <div className={SectionContainerStyle}>
                 <Image
                     src={imageSrc}
                     fill
-                    alt="hero-section"
+                    alt={alt}
                     className={HeroSectionImageStyle}
+                    priority={className === 'priority'}
                 />
             </div>
         </section>

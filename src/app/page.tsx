@@ -38,7 +38,11 @@ const App = () => {
                     key={section.id}
                     imageSrc={section.imageSrc}
                     alt={section.alt}
-                    className={index === 0 ? 'priority' : ''}
+                    className={
+                        index === 0
+                            ? 'priority flex max-h-screen min-h-screen items-center justify-center object-contain'
+                            : ''
+                    }
                 />
             ))}
             <footer className="h-12 w-full bg-gray-500"></footer>

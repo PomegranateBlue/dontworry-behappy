@@ -6,14 +6,20 @@ import {
     SectionContainerStyle,
     HeroSectionImageStyle,
 } from '@/components/common/HeroSection.style';
+
 interface HeroSectionProps {
     imageSrc: string;
     alt?: string;
     className?: string;
 }
-const HeroSection = ({ imageSrc, alt = 'hero-section', className }: HeroSectionProps) => {
+
+const HeroSection = ({
+    imageSrc,
+    alt = 'hero-section',
+    className,
+}: HeroSectionProps) => {
     return (
-        <section className={SectionStyle}>
+        <section className={`${SectionStyle} ${className || ''}`}>
             <div className={SectionContainerStyle}>
                 <Image
                     src={imageSrc}

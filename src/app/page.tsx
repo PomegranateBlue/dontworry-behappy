@@ -32,19 +32,11 @@ const heroSectionsImgSrcs = [
 ];
 const App = () => {
     return (
-        <main className="bg-backgroundWhite px-3 py-6 pt-16">
-            {heroSectionsImgSrcs.map((section, index) => (
-                <HeroSection
-                    key={section.id}
-                    imageSrc={section.imageSrc}
-                    alt={section.alt}
-                    className={
-                        index === 0
-                            ? 'priority flex max-h-screen min-h-screen items-center justify-center object-contain'
-                            : ''
-                    }
-                />
-            ))}
+        <main className="bg-backgroundWhite">
+            <HeroSection
+                imageSrc={heroSectionsImgSrcs[0].imageSrc}
+                alt={heroSectionsImgSrcs[0].alt}
+            />
             <footer className="h-12 w-full bg-gray-500"></footer>
         </main>
     );
